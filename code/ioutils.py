@@ -17,27 +17,20 @@ def read_puzzle_from_file(filename):
     return puzzle
 
 def write_solved_puzzle_to_file(puzzle, filename):
-    f = open(filename, 'w')
+    with open(filename, 'w') as f:
+        for r in range(len(puzzle)):
+            # first row case
+            if r == 0:
+                for c in range(len(puzzle[0])):
+                    if c == len(puzzle[0]) - 1:
+                        f.write('{:>3}\n'.format(puzzle[r][c]))
+                    else:
+                        f.write('{:>3}'.format(''))
 
-    for row in range(len(puzzle)):
-        # first row case
-        if row == 0:
-            for col in range(len(puzzle[0])):
-                if col == 0:
-                    f.write(' ')
-                elif col == len(puzzle[0]) - 1:
-                    f.write('{:>3}\n'.format(puzzle[row][col]))
-                else:
-                    f.write('{:>3}'.format(''))
-
-        # printing every other row
-        else:
-            for col in range(len(puzzle[0])):
-                if col == 0:
-                    f.write(str(puzzle[row][col]))
-                elif col == len(puzzle[0]) - 1:
-                    f.write('{:>3}\n'.format(puzzle[row][col]))
-                else:
-                    f.write('{:>3}'.format(puzzle[row][col]))
-    
-    f.close()
+            # printing every other row
+            else:
+                for c in range(len(puzzle[0])):
+                    if c == len(puzzle[0]) - 1:
+                        f.write('{:>3}\n'.format(puzzle[r][c]))
+                    else:
+                        f.write('{:>3}'.format(puzzle[r][c]))

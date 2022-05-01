@@ -14,8 +14,8 @@ def assertion(expr):
 def get_constraints_naive(puzzle):
     f = '' # formula
 
-    R = len(puzzle)    # number of rows
-    C = len(puzzle[0]) # number of columns
+    R = len(puzzle) - 1    # number of rows
+    C = len(puzzle[0]) - 1 # number of columns
 
     # add declarations assertions on each entry
     for (r, c) in product(range(1, R), range(C)):
@@ -186,3 +186,14 @@ def solve_constraints(f):
         return s.model(), s.statistics()
     else:
         return None, s.statistics()
+
+# fill in holes based on a model
+def fill_holes_from_model(puzzle, model):
+    R = len(puzzle) - 1    # number of rows
+    C = len(puzzle[0]) - 1 # number of columns
+
+    for (r, c) in product(range(1, R), range(C)):
+        if puzzle[r][c] == 0:
+            puzzle[r][c] = model[Int(f'x_{r}_{c}')].as_long()
+
+    return puzzle

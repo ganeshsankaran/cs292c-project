@@ -1,20 +1,18 @@
-import random
+from itertools import product
+from random import randint, sample
 
+# randomly generated a solved puzzle
+# R rows by C columns
+# entries from lo to hi
 def get_random_solved_puzzle(R, C, lo, hi):
     puzzle = []
 
     # generate random values in each row
     for r in range(R):
-        row = []
-        for c in range(C):
-            row.append(random.randint(lo, hi))
-        puzzle.append(row + [0])
+        puzzle.append([randint(lo, hi) for c in range(C)] + [0])
 
     # fix last row
-    last = []
-    for c in range(C):
-        last.append(sum([puzzle[i][c] for i in range(R)]))
-    puzzle.append(last)
+    puzzle.append([sum([puzzle[r][c] for r in range(R)]) for c in range(C)])
 
     # fix last column
     for r in range(R):
@@ -27,20 +25,19 @@ def get_random_solved_puzzle(R, C, lo, hi):
     # fix other diagonal
     d1 = sum([puzzle[r][c] for (r, c) in zip(range(R), reversed(range(C)))])
     first = [-1] * R + [d1]
-    
     puzzle = [first] + puzzle
+    
     return puzzle
 
-def add_holes_to_solved_puzzle(puzzle, num_holes):
-    # gather possible options for holes
-    options = []
-    for row in range(1, len(puzzle) - 1):
-        for col in range(len(puzzle[row]) - 1):
-            options.append((row, col))
-    
-    hole_indexes = random.sample(options, num_holes)
+# remove some entries from a solved puzzle
+def make_holes_in_solved_puzzle(puzzle, n):
+    R = len(puzzle) - 1    # number of rows
+    C = len(puzzle[0]) - 1 # number of columns
 
-    for point in hole_indexes:
-        puzzle[point[0]][point[1]] = 0
+    # randomly choose holes
+    holes = sample(set(product(range(1, R), range(C))), n)
+
+    for (r, c) in holes:
+        puzzle[r][c] = 0
     
     return puzzle
