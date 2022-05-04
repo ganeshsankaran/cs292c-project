@@ -178,7 +178,7 @@ def get_constraints(puzzle):
     return f
 
 # solve SMT-LIB formula using Z3
-def solve_constraints(f):
+def get_model(f):
     s = Solver()
     s.add(parse_smt2_string(f))
     
@@ -186,6 +186,25 @@ def solve_constraints(f):
         return s.model(), s.statistics()
     else:
         return None, s.statistics()
+
+def count_models(f):
+    s = Solver()
+    s.add(parse_smt2_string(f))
+
+    n = 0
+
+    while s.check() == sat:
+        m = s.model()
+        n += 1
+
+        constraint = []
+
+        for var in m:
+            constraint.append(var() != m[var])
+        
+        s.add(Or(constraint))
+
+    return n
 
 # fill in holes based on a model
 def fill_holes_from_model(puzzle, model):

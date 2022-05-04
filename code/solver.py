@@ -26,7 +26,9 @@ else:
     formula = get_constraints(puzzle)
 
 # solve constraints
-model, statistics = solve_constraints(formula)
+model, statistics = get_model(formula)
+n = count_models(formula)
+print(n)
 print(statistics) # TODO: interpret these
 
 # get solved puzzle
