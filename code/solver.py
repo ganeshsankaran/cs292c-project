@@ -32,17 +32,23 @@ model, statistics = get_model(formula)
 # based on what we want to check
 _time         = get_statistic('time', statistics)
 _memory       = get_statistic('memory', statistics)
-_mk_bool_var  = get_statistic('mk-bool-var', statistics)
+_rlimit_count = get_statistic('rlimit count', statistics)
+_mk_bool_var  = get_statistic('mk bool var', statistics)
+_mk_clause    = get_statistic('mk clause', statistics)
+
+# these three are meh
 _decisions    = get_statistic('decisions', statistics)
 _propagations = get_statistic('propagations', statistics)
 _conflicts    = get_statistic('conflicts', statistics)
 
 print(_time)
 print(_memory)
+print(_rlimit_count)
+print(_mk_bool_var)
+print(_mk_clause)
 print(_decisions)
 print(_propagations)
 print(_conflicts)
-print(_mk_bool_var)
 
 n = count_models(formula)
 print(n)
