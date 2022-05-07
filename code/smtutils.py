@@ -183,9 +183,15 @@ def get_model(f):
     s.add(parse_smt2_string(f))
     
     if s.check() == sat:
-        return s.model(), s.statistics()
+        model = s.model()
+        stats = s.statistics()
     else:
-        return None, s.statistics()
+        model = None
+        stats = s.statistics()
+    
+    s.reset()
+
+    return model, stats
 
 def count_models(f):
     s = Solver()
@@ -203,6 +209,8 @@ def count_models(f):
             constraint.append(var() != m[var])
         
         s.add(Or(constraint))
+    
+    s.reset()
 
     return n
 

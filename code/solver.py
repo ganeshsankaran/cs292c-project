@@ -49,6 +49,7 @@ print(_mk_clause)
 print(_decisions)
 print(_propagations)
 print(_conflicts)
+print(statistics)
 
 n = count_models(formula)
 print(n)
