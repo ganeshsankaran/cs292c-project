@@ -206,6 +206,13 @@ def count_models(f):
 
     return n
 
+# get statistic
+def get_statistic(key, statistics):
+    try:
+        return statistics.get_key_value(key)
+    except:
+        return 0
+
 # fill in holes based on a model
 def fill_holes_from_model(puzzle, model):
     R = len(puzzle) - 1    # number of rows
