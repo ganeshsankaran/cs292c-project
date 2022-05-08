@@ -12,7 +12,7 @@ dims = [4, 4]
 val_range = [1, 9]
 max_holes = 12
 
-fields = ['num_holes', 'time', 'memory', 'rlimit count', 'mk bool var', 'mk clause', 'decisions', 'propagations', 'conflicts', 'model count']
+fields = ['num_holes', 'time', 'memory', 'rlimit count', 'mk bool var', 'mk clause', 'decisions', 'propagations', 'conflicts']
 
 with open('../results/experiment2_results.csv', 'w') as f:
     f.write(','.join(fields) + '\n')

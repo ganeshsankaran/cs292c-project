@@ -28,7 +28,7 @@ with open('../results/experiment1_results_naive.csv', 'w') as f:
     constraints = get_constraints_naive(puzzle)
     model, stats = get_model(constraints)
     n = count_models(constraints)
-    row = [str(r[0])] + [str(60 * int(r[1]) + int(r[2]))] + [str(get_statistic(field, stats)) for field in fields[2:]] + [str(n)]
+    row = [str(r[0])] + [str(60 * int(r[1]) + int(r[2]))] + [str(get_statistic(field, stats)) for field in fields[2:-1]] + [str(n)]
     f.write(','.join(row) + '\n')
 
 # run the experiments

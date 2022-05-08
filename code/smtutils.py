@@ -179,23 +179,19 @@ def get_constraints(puzzle):
 
 # solve SMT-LIB formula using Z3
 def get_model(f):
-    s = Solver()
-    s.add(parse_smt2_string(f))
+    ctx = Context()
+    s = SolverFor('QF_LIA', ctx=ctx)
+    s.add(parse_smt2_string(f, ctx=ctx))
     
     if s.check() == sat:
-        model = s.model()
-        stats = s.statistics()
+        return s.model(), s.statistics()
     else:
-        model = None
-        stats = s.statistics()
-    
-    s.reset()
-
-    return model, stats
+        return None, s.statistics()
 
 def count_models(f):
-    s = Solver()
-    s.add(parse_smt2_string(f))
+    ctx = Context()
+    s = SolverFor('QF_LIA', ctx=ctx)
+    s.add(parse_smt2_string(f, ctx=ctx))
 
     n = 0
 
@@ -209,8 +205,6 @@ def count_models(f):
             constraint.append(var() != m[var])
         
         s.add(Or(constraint))
-    
-    s.reset()
 
     return n
 
