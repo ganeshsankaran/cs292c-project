@@ -219,8 +219,10 @@ def fill_holes_from_model(puzzle, model):
     R = len(puzzle) - 1    # number of rows
     C = len(puzzle[0]) - 1 # number of columns
 
-    for (r, c) in product(range(1, R), range(C)):
-        if puzzle[r][c] == 0:
-            puzzle[r][c] = model[Int(f'x_{r}_{c}')].as_long()
+    for d in model:
+        _, r, c = str(d).split('_')
+        r = int(r)
+        c = int(c)
+        puzzle[r][c] = str(model[d])
 
     return puzzle
