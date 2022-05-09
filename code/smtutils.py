@@ -189,21 +189,20 @@ def get_model(f):
         return None, s.statistics()
 
 def count_models(f):
-    ctx = Context()
+    ctx = Context() # need a local context
     s = SolverFor('QF_LIA', ctx=ctx)
     s.add(parse_smt2_string(f, ctx=ctx))
 
-    n = 0
+    n = 0 # model count
 
     while s.check() == sat:
         m = s.model()
-        n += 1
+        n += 1 # increment model count
 
+        # negate the model
         constraint = []
-
         for var in m:
             constraint.append(var() != m[var])
-        
         s.add(Or(constraint))
 
     return n
