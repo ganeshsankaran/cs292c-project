@@ -21,7 +21,7 @@ csvfile = open('../samples/times.csv', newline='\n')
 reader = csv.reader(csvfile, delimiter=',')
 next(reader)
 
-with open('../results/experiment1_results_naive.csv', 'w') as f:
+with open('../results/csv/experiment1_results_naive.csv', 'w') as f:
   f.write(','.join(fields) + '\n')
   for r in reader:
     puzzle = read_puzzle_from_file(f'../samples/puzzle{r[0]}.txt')
@@ -37,7 +37,7 @@ csvfile = open('../samples/times.csv', newline='\n')
 reader = csv.reader(csvfile, delimiter=',')
 next(reader)
 
-with open('../results/experiment1_results.csv', 'w') as f:
+with open('../results/csv/experiment1_results.csv', 'w') as f:
   f.write(','.join(fields) + '\n')
   for r in reader:
     puzzle = read_puzzle_from_file(f'../samples/puzzle{r[0]}.txt')

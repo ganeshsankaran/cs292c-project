@@ -14,7 +14,7 @@ max_holes = 12
 
 fields = ['num_holes', 'time', 'memory', 'rlimit count', 'mk bool var', 'mk clause', 'decisions', 'propagations', 'conflicts']
 
-with open('../results/experiment2_results.csv', 'w') as f:
+with open('../results/csv/experiment2_results.csv', 'w') as f:
     f.write(','.join(fields) + '\n')
 
     for holes in range(max_holes + 1):

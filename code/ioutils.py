@@ -36,13 +36,3 @@ def write_solved_puzzle_to_file(puzzle, filename):
                     else:
                         f.write('{:>3}'.format(puzzle[r][c]))
 
-def plot_graph(title,x_arr, y_arr, x_label, y_label): 
-    plt.figure()
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.title('title')
-    plt.scatter(x_arr, y_arr, s = 5)
-    plt.savefig(f'./results/graphs/{title}.jpg')
-
-# test = [0, 1, 2, 3, 4, 5]
-# plot(test, test, 'testing graph', 'x_label', 'y_label')
