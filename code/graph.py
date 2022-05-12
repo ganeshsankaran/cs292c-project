@@ -1,55 +1,67 @@
-# python3 graph.py [path to csv] [x_axis] [y_axis]
+import argparse as ap
 import matplotlib.pyplot as plt
-import os.path
-from os import path
+import os
 import sys
 
-def plot_graph(title,x_arr, y_arr, x_label, y_label): 
+def make_scatter_plot(title, xdata, ydata, xlabel, ylabel): 
     plt.figure()
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.scatter(x_arr, y_arr, s = 5)
     plt.title(title)
-    # print(x_arr)
-    # print(y_arr)
+    plt.scatter(xdata, ydata)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.savefig(f'../results/graphs/{title}')
 
-if len(sys.argv) != 4:
-    print('usage: python3 graph.py [path to csv] \'[x_axis]\' \'[y_axis]\'')
+parser = ap.ArgumentParser(description='Graph data from CSV')
+parser.add_argument('-p', '--path', help='CSV file path', required=True)
+parser.add_argument('-x', '--xcol', help='x column name', required=True)
+parser.add_argument('-y', '--ycol', help='y column name', required=True)
+parser.add_argument('-xl', '--xlabel', help='x label name', required=False)
+parser.add_argument('-yl', '--ylabel', help='y label name', required=False)
+parser.add_argument('-t', '--title', help='title', required=False)
+args = parser.parse_args()
+
+if not os.path.exists(args.path): 
+    print(f'{args.path} does not exist')
     exit()
 
-csv_path = str(sys.argv[1])
-x_axis = str(sys.argv[2])
-y_axis = str(sys.argv[3])
+xdata = []
+ydata = []
 
-if not path.exists(csv_path): 
-    print(f'{csv_path} does not exist')
-    exit()
+if not args.xlabel:
+    xlabel = args.xcol
+else:
+    xlabel = args.xlabel
 
-indices = [-1, -1]
-x_arr = []
-y_arr = []
-title = '{} vs {} from {}'.format(x_axis, y_axis, csv_path.split('/')[-1][:-4])
+if not args.ylabel:
+    ylabel = args.ycol
+else:
+    ylabel = args.ylabel
 
-with open(csv_path, 'r') as f:
-    firstLine = next(f).split(',')
-    x_index = -1
-    y_index = -1
+if not args.title:
+    title = f'{ylabel} vs {xlabel}'
+else:
+    title = args.title
+
+with open(args.path, 'r') as f:
+    first_line = next(f).rstrip('\n').split(',')
+    xindex = -1
+    yindex = -1
+    
     try: 
-        x_index = firstLine.index(x_axis)
+        xindex = first_line.index(args.xcol)
     except ValueError: 
-        print(f'{x_axis} does not exist in {csv_path}')
+        print(f'{args.xcol} does not exist in {args.path}')
         exit()
     
     try: 
-        y_index = firstLine.index(y_axis)
+        yindex = first_line.index(args.ycol)
     except ValueError: 
-        print(f'{y_axis} does not exist in {csv_path}')
+        print(f'{args.ycol} does not exist in {args.path}')
         exit() 
 
     for line in f: 
-        arr = line.rstrip('\n').split(',')
-        x_arr.append(float(arr[x_index]))
-        y_arr.append(float(arr[y_index]))
+        lst = line.rstrip('\n').split(',')
+        xdata.append(float(lst[xindex]))
+        ydata.append(float(lst[yindex]))
 
-plot_graph(title, x_arr, y_arr, x_axis, y_axis)
+make_scatter_plot(title, xdata, ydata, xlabel, ylabel)
