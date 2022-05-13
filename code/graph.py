@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-
 def make_scatter_plot(title, xdata, ydata, xlabel, ylabel):
     plt.style.use('dark_background')
     plt.figure()
@@ -12,7 +11,6 @@ def make_scatter_plot(title, xdata, ydata, xlabel, ylabel):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.savefig(f'../results/graphs/{title}', transparent=True)
-
 
 parser = ap.ArgumentParser(description='Graph data from CSV')
 parser.add_argument('-p', '--path', help='CSV file path', required=True)
