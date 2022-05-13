@@ -15,7 +15,7 @@ num_holes = 12
 
 fields = ['val_range', 'time', 'memory', 'rlimit count', 'mk bool var', 'mk clause', 'decisions', 'propagations', 'conflicts']
 
-with open('../results/experiment4_results.csv', 'w') as f:
+with open('../results/csv/experiment4_results.csv', 'w') as f:
     f.write(','.join(fields) + '\n')
 
     for v in val_range:
