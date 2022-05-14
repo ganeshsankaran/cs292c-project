@@ -6,10 +6,10 @@ import sys
 def make_scatter_plot(title, xdata, ydata, xlabel, ylabel):
     plt.style.use('dark_background')
     plt.figure(figsize=(15, 7.5))
-    plt.title(title)
+    plt.title(title, fontsize=24)
     plt.scatter(xdata, ydata)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
+    plt.xlabel(xlabel, fontsize=16)
+    plt.ylabel(ylabel, fontsize=16)
     plt.savefig(f'../results/graphs/{title}', transparent=True)
 
 parser = ap.ArgumentParser(description='Graph data from CSV')
