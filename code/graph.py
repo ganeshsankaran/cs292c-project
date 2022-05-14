@@ -5,7 +5,7 @@ import sys
 
 def make_scatter_plot(title, xdata, ydata, xlabel, ylabel):
     plt.style.use('dark_background')
-    plt.figure()
+    plt.figure(figsize=(15, 7.5))
     plt.title(title)
     plt.scatter(xdata, ydata)
     plt.xlabel(xlabel)
