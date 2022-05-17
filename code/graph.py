@@ -3,14 +3,22 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-def make_scatter_plot(title, xdata, ydata, xlabel, ylabel):
-    plt.style.use('dark_background')
-    plt.figure(figsize=(15, 7.5))
-    plt.title(title, fontsize=24)
-    plt.scatter(xdata, ydata)
-    plt.xlabel(xlabel, fontsize=16)
-    plt.ylabel(ylabel, fontsize=16)
-    plt.savefig(f'../results/graphs/{title}', transparent=True)
+def make_scatter_plot(title, xdata, ydata, xlabel, ylabel, light):
+    if light:
+        plt.figure()
+        plt.title(title)
+        plt.scatter(xdata, ydata)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.savefig(f'../results/graphs_light/{title}')
+    else:
+        plt.style.use('dark_background')
+        plt.figure(figsize=(15, 7.5))
+        plt.title(title, fontsize=24)
+        plt.scatter(xdata, ydata)
+        plt.xlabel(xlabel, fontsize=16)
+        plt.ylabel(ylabel, fontsize=16)
+        plt.savefig(f'../results/graphs/{title}', transparent=True)
 
 parser = ap.ArgumentParser(description='Graph data from CSV')
 parser.add_argument('-p', '--path', help='CSV file path', required=True)
@@ -19,6 +27,7 @@ parser.add_argument('-y', '--ycol', help='y column name', required=True)
 parser.add_argument('-xl', '--xlabel', help='x label name', required=False)
 parser.add_argument('-yl', '--ylabel', help='y label name', required=False)
 parser.add_argument('-t', '--title', help='title', required=False)
+parser.add_argument('-l', '--light', help='light theme', required=False, action='store_true')
 args = parser.parse_args()
 
 if not os.path.exists(args.path):
@@ -65,4 +74,4 @@ with open(args.path, 'r') as f:
         xdata.append(float(lst[xindex]))
         ydata.append(float(lst[yindex]))
 
-make_scatter_plot(title, xdata, ydata, xlabel, ylabel)
+make_scatter_plot(title, xdata, ydata, xlabel, ylabel, args.light)

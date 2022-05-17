@@ -11,6 +11,16 @@ python3 graph.py -p ../results/csv/experiment1_results_consolidated.csv \
     -t "Z3 Time vs Human Time with Compact Symbolic Compilation"
 
 python3 graph.py -p ../results/csv/experiment1_results_consolidated.csv \
+    -x "human time" -y "memory (naive)" \
+    -xl "Human Time (s)" -yl "Memory Usage (MB)" \
+    -t "Memory Usage (MB) vs Human Time with Naive Symbolic Compilation"
+
+python3 graph.py -p ../results/csv/experiment1_results_consolidated.csv \
+    -x "human time" -y "memory" \
+    -xl "Human Time (s)" -yl "Memory Usage (MB)" \
+    -t "Memory (MB) vs Human Time with Compact Symbolic Compilation"
+
+python3 graph.py -p ../results/csv/experiment1_results_consolidated.csv \
     -x "human time" -y "rlimit count (naive)" \
     -xl "Human Time (s)" -yl "Resource Usage" \
     -t "Resource Usage vs Human Time with Naive Symbolic Compilation"
